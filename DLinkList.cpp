@@ -205,7 +205,6 @@ int main() {
 
     DLinklist CL;//创建一个头指针
     InitCircleDLinkList(CL);//初始化循环双链表
-    //adasdadada
 
     return 0;
 }
