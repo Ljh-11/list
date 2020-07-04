@@ -1,18 +1,143 @@
 //
-// Created by æé‡‘è±ª on 2020/7/3.
+// Created by Àî½ğºÀ on 2020/7/3.
 //
 #include <iostream>
 
-//å®šä¹‰é“¾é˜Ÿåˆ—ç»“ç‚¹ç»“æ„ä½“ç±»å‹
+//¶¨ÒåÁ´¶ÓÁĞ½áµã½á¹¹ÌåÀàĞÍ
 typedef struct LinkNode{
     int data;
     struct LinkNode * next;
 }LinkNode;
 
-//
+//¶¨Òå¶ÓÍ·Ö¸ÕëºÍ¶ÓÎ²Ö¸Õë½á¹¹ÌåÀàĞÍ
+typedef struct {
+    LinkNode * front; //¶ÓÍ·Ö¸Õë
+    LinkNode * rear; //¶ÓÎ²Ö¸Õë
+    int length; //Ôö¼ÓÒ»¸ölength±äÁ¿ÒÔ±ãÓÚÇó¶ÓÁĞ³¤¶È
+}LinkQueue;
+
+//³õÊ¼»¯Á´¶ÓÁĞ(´øÍ·½áµã)
+void InitQueue(LinkQueue & Q) {
+    Q.front = Q.rear = (LinkNode *) malloc(sizeof(LinkNode));
+    Q.front->next = nullptr;
+    Q.length = 0;
+}
+
+//³õÊ¼»¯Á´¶ÓÁĞ(²»´øÍ·½áµã)
+void InitQueueWithoutHead(LinkQueue & Q) {
+    Q.front = Q.rear = nullptr;
+    Q.length = 0;
+}
+
+//Á´¶ÓÁĞÅĞ¿Õ£¨´øÍ·½áµã£©
+bool IsEmpty(LinkQueue Q) {
+    if (Q.front == Q.rear) {
+        return true;
+    }
+
+    return false;
+}
+
+//Á´¶ÓÁĞÅĞ¿Õ£¨²»´øÍ·½áµã£©
+bool IsEmptyWithoutHead(LinkQueue Q) {
+    if (Q.front == nullptr) { //ÎŞ½áµã
+        return true;
+    }
+
+    return false;
+}
+
+//Èë¶Ó£¨´øÍ·½áµã£©
+void EnQueue(LinkQueue & Q, int x) {
+    LinkNode * s = (LinkNode *) malloc(sizeof(LinkNode));
+    s->data = x;
+    s->next = nullptr; //ĞÂÈë¶Ó½áµãÒ»¶¨Ö¸Ïònull
+    Q.rear->next = s;
+    Q.rear = s;
+    Q.length++;
+}
+
+//Èë¶Ó£¨²»´øÍ·½áµã£©
+void EnQueueWithoutHead(LinkQueue & Q, int x) {
+    LinkNode * s = (LinkNode *) malloc(sizeof(LinkNode));
+    s->data = x;
+    s->next = nullptr;
+
+    if (Q.front == nullptr) { //µÚÒ»¸ö½áµãÈë¶ÓÊ±ÌØÊâ²Ù×÷
+        Q.front = s;
+        Q.rear = s;
+    } else {
+        Q.rear->next = s;
+        Q.rear = s;
+    }
+
+    Q.length++;
+}
+
+//³ö¶Ó£¨´øÍ·½áµã£©
+bool DeQueue(LinkQueue & Q, int & X) {
+    if (Q.front == Q.rear) { //ÅĞ¿Õ
+        return false;
+    }
+
+    LinkNode * p = Q.front->next;
+    X = p->data;
+    Q.front->next = p->next;
+
+    if (p == Q.rear) { //Èç¹ûÉ¾³ıµÄÊÇ×îºóÒ»¸ö½áµã£¬ÔòÉ¾³ıºóÁ´±íÖÃ¿Õ
+        Q.rear = Q.front;
+    }
+
+    free(p);
+    Q.length--;
+
+    return true;
+}
+
+//³ö¶Ó£¨²»´øÍ·½áµã£©
+bool DeQueueWithoutHead(LinkQueue & Q, int & X) {
+    if (Q.front == nullptr) { //ÅĞ¿Õ
+        return false;
+    }
+
+    LinkNode * p = Q.front;
+    X = p->data;
+    Q.front = p->next;
+
+    if (p == Q.rear) { //Èç¹ûÉ¾³ıµÄÊÇ×îºóÒ»¸ö½áµã£¬ÔòÉ¾³ıºóÁ´±íÖÃ¿Õ
+        Q.rear = Q.front;
+    }
+
+    free(p);
+    Q.length--;
+
+    return true;
+}
+
+//¶Á¶Ó
+bool GetQueue(LinkQueue Q) {
+    if (Q.front->next == nullptr) {
+        return false;
+    }
+
+    int x = Q.front->next->data;
+    printf("%d\n", x);
+
+    return true;
+}
 
 
 int main() {
+    LinkQueue Q; //´´½¨Ò»¸öº¬ÓĞ¶ÓÍ·Ö¸ÕëºÍ¶ÓÎ²Ö¸ÕëµÄ½áµã±äÁ¿
+    int X;
+
+    InitQueueWithoutHead(Q);
+    EnQueueWithoutHead(Q, 1);
+    EnQueueWithoutHead(Q, 2);
+    DeQueueWithoutHead(Q, X);
+
+    printf("%d\n", Q.front->data);
+
 
 
     return 0;

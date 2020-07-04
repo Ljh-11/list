@@ -239,7 +239,7 @@ void print_ListWithoutHead(LinkList L) {
 //求单链表长度(带头结点)
 int List_Length(LinkList L) {
     int len = 0;
-    LNode * p = L->next;
+    LNode * p = L->next; //让p初始时指向第一个结点
 
     while (p != nullptr) {
         len++;
