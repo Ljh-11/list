@@ -29,18 +29,21 @@ Linknode  * LinkPush(LinkStack & Lhead, int x) {
     s = (Linknode *) malloc(sizeof(Linknode));
     s->data = x;
     s->next = Lhead->next;
-    Lhead->next = s;
+    Lhead->next = s; //Lhead始终指向栈顶元素
 
     return Lhead;
 }
 
 //链栈出栈（带头结点）
 bool LinkPop(LinkStack & Lhead, int & Y) {
-    if (Lhead ->next == nullptr)
+    if (Lhead->next == nullptr)
         return false;
 
-    Y = Lhead->next->data;
-    Lhead->next = Lhead->next->next;
+    Linknode * s = Lhead->next;
+    Y = s->data;
+    Lhead->next = s->next;
+    free(s);
+
     return true;
 }
 

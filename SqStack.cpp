@@ -29,8 +29,7 @@ bool Push(SqStack & S, int x) {
     if (S.top == MaxSize - 1) //判断是否栈满
         return false;
 
-    S.top = S.top + 1; //指针先加1，再入栈
-    S.data[S.top] = x;
+    S.data[++S.top] = x; //指针先加1，再入栈
 
     return true;
 }

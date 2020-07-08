@@ -26,7 +26,7 @@ bool QueueEmpty(SqQueue Q) {
 
 //进队
 bool EnQueue(SqQueue & Q, int x) {
-    if ((Q.rear + 1) % MaxSize == Q.front) { //判断队满,牺牲一个单元来区分队满与队空
+    if ((Q.rear + 1) % MaxSize == Q.front) { //判断队满，牺牲一个单元来区分队满与队空
         return false;
     }
 
